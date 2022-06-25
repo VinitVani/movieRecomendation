@@ -28,9 +28,9 @@ new_df1 = pickle.load(open('new_df.pkl','rb'))
 new_df = pickle.load(open('movies.pkl','rb'))
 #similarity= pickle.load(open('similarity.pkl','rb'))
 All_movies= new_df["Tittle"].values
-
-from sklearn.metrics.pairwise import cosine_similarity
-from sklearn.feature_extraction.text import CountVectorizer
+cv = pickle.load(open('cv.pkl','rb'))
+# from sklearn.metrics.pairwise import cosine_similarity
+# from sklearn.feature_extraction.text import CountVectorizer
 cv = CountVectorizer(max_features=5000,stop_words='english')
 vectors = cv.fit_transform(new_df1['Tags']).toarray()
 similarity = cosine_similarity(vectors)
