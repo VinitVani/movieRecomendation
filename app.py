@@ -1,12 +1,17 @@
 import streamlit as st
-
+import pandas as pd
 import pickle
 import requests
+
+
+
 def fetch_poster(movie_id):
     url = "https://api.themoviedb.org/3/movie/{}?api_key=8265bd1679663a7ea12ac168da84d2e8&language=en-US".format(movie_id)
     response = requests.get(url)
     data = response.json()
     return "https://image.tmdb.org/t/p/w500/" + data["poster_path"]
+
+
 
 
 def recommend(movie):
@@ -24,13 +29,24 @@ def recommend(movie):
 
     return _5_recommend_movie,_5_recommend_movie_posters
 
-new_df1 = pickle.load(open('new_df.pkl','rb'))
-new_df = pickle.load(open('movies.pkl','rb'))
+
+
+pickle_off = open(r"new_df.pkl","rb")
+new_df1 = pd.read_pickle(pickle_off)
+
+pickle_off1 = open(r"movies.pkl","rb")
+new_df = pd.read_pickle(pickle_off1)
+
+
+#new_df1 = pickle.load(open('new_df.pkl','rb'))
+#new_df = pickle.load(open('movies.pkl','rb'))
 #similarity= pickle.load(open('similarity.pkl','rb'))
+
+
 All_movies= new_df["Tittle"].values
-cv = pickle.load(open('cv.pkl','rb'))
-# from sklearn.metrics.pairwise import cosine_similarity
-# from sklearn.feature_extraction.text import CountVectorizer
+
+from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.feature_extraction.text import CountVectorizer
 cv = CountVectorizer(max_features=5000,stop_words='english')
 vectors = cv.fit_transform(new_df1['Tags']).toarray()
 similarity = cosine_similarity(vectors)
