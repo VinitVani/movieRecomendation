@@ -31,10 +31,10 @@ def recommend(movie):
 
 
 
-pickle_off = open(r"new_df.pkl","rb")
+pickle_off = open(r"new_df1.pkl","rb")
 new_df1 = pd.read_pickle(pickle_off)
 
-pickle_off1 = open(r"movies.pkl","rb")
+pickle_off1 = open(r"movies1.pkl","rb")
 new_df = pd.read_pickle(pickle_off1)
 
 
